@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">DemoApp</string>
-    <string name="collect_api_key">4SBp1jVCkJojJmTNrZ7S45:6fZ2yg2zbqfhpDIjxxQQwg</string>
+    <string name="collect_api_key">apikey 4SBp1jVCkJojJmTNrZ7S45:6fZ2yg2zbqfhpDIjxxQQwg</string>
     <string name="default_web_client_id">679857963602-8bqv6a9pu9d572ktn959dbusec7qchdv.apps.googleusercontent.com</string>
 </resources>
