@@ -14,6 +14,12 @@
         app:tabTextColor="@android:color/black"
         app:tabSelectedTextColor="@android:color/holo_green_dark"/>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Ara..." />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

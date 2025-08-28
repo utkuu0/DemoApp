@@ -3,14 +3,19 @@ package com.utkuaksu.demoapp.ui.adapter.currency
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.utkuaksu.demoapp.R
 import com.utkuaksu.demoapp.data.model.currency.Currency
+import android.widget.Filter
+
 
 class CurrencyAdapter(
     private var currencyList: List<Currency>
-) : RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
+) : RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>(), Filterable {
+
+    private var filteredList: List<Currency> = currencyList
 
     fun updateList(newList: List<Currency> ) {
         currencyList = newList
@@ -34,6 +39,28 @@ class CurrencyAdapter(
         holder.tvCurrency.text = currency.name
         holder.tvCurrencyBuying.text = currency.buying.toString()
         holder.tvCurrencySelling.text = currency.selling.toString()
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val query = constraint?.toString()?.lowercase()?.trim() ?: ""
+                val result = if (query.isEmpty()) {
+                    currencyList
+                } else {
+                    currencyList.filter {
+                        it.name.lowercase().contains(query) || it.code.lowercase().contains(query)
+                    }
+                }
+                return FilterResults().apply { values = result }
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredList = results?.values as? List<Currency> ?: emptyList()
+                notifyDataSetChanged()
+            }
+        }
     }
 
     override fun getItemCount(): Int = currencyList.size

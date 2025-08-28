@@ -53,6 +53,10 @@ class CurrencyFragment : Fragment() {
         viewModel.fetchCurrencies()
     }
 
+    fun filter(query: String) {
+        adapter.filter.filter(query)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
