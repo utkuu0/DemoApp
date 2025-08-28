@@ -6,21 +6,15 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.utkuaksu.demoapp.fragment.LoginFragment"
+        android:name="com.utkuaksu.demoapp.ui.login.LoginFragment"
         android:label="Login" >
-
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.utkuaksu.demoapp.fragment.HomeFragment"
-        android:label="Home">
+        android:id="@+id/mainFragment"
+        android:name="com.utkuaksu.demoapp.ui.main.MainFragment"
+        android:label="MainFragment" />
 
-        <argument
-            android:name="userName"
-            app:argType="string" />
-    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.utkuaksu.demoapp.model
+package com.utkuaksu.demoapp.data.model.currency
 
 data class CurrencyResponse(
     val success: Boolean,
@@ -12,5 +12,4 @@ data class Currency(
     val selling: Double,
     val rate: Double
 )
-
 

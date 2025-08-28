@@ -1,4 +1,4 @@
-package com.utkuaksu.demoapp.adapter
+package com.utkuaksu.demoapp.ui.adapter.currency
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,16 +6,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.utkuaksu.demoapp.R
-import com.utkuaksu.demoapp.model.Currency
+import com.utkuaksu.demoapp.data.model.currency.Currency
 
 class CurrencyAdapter(
-    private val currencyList: List<Currency>
+    private var currencyList: List<Currency>
 ) : RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
 
+    fun updateList(newList: List<Currency> ) {
+        currencyList = newList
+        notifyDataSetChanged()
+    }
+
     class CurrencyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvCurrency: TextView = itemView.findViewById(R.id.tvCurrency)
-        val tvBuying: TextView = itemView.findViewById(R.id.tvBuying)
-        val tvSelling: TextView = itemView.findViewById(R.id.tvSelling)
+        val tvCurrency: TextView = itemView.findViewById(R.id.tvShare)
+        val tvCurrencyBuying: TextView = itemView.findViewById(R.id.tvShareLastPrice)
+        val tvCurrencySelling: TextView = itemView.findViewById(R.id.tvShareRate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
@@ -27,8 +32,8 @@ class CurrencyAdapter(
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         val currency = currencyList[position]
         holder.tvCurrency.text = currency.name
-        holder.tvBuying.text = currency.buying.toString()
-        holder.tvSelling.text = currency.selling.toString()
+        holder.tvCurrencyBuying.text = currency.buying.toString()
+        holder.tvCurrencySelling.text = currency.selling.toString()
     }
 
     override fun getItemCount(): Int = currencyList.size
