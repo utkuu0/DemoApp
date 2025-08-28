@@ -1,7 +1,5 @@
 package com.utkuaksu.demoapp.data.model.share
 
-import com.android.identity.documenttype.Icon
-
 data class Share(
     val code: String,
     val text: String,
