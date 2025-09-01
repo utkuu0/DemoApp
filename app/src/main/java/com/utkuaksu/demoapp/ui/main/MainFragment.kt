@@ -6,17 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
+import com.utkuaksu.demoapp.MainViewModel
 import com.utkuaksu.demoapp.databinding.FragmentMainBinding
 import com.utkuaksu.demoapp.ui.adapter.viewpager.ViewPagerAdapter
-import com.utkuaksu.demoapp.ui.currency.CurrencyFragment
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter by lazy { ViewPagerAdapter(requireActivity()) } // FragmentStateAdapter
+    private val adapter by lazy { ViewPagerAdapter(requireActivity()) }
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,28 +46,13 @@ class MainFragment : Fragment() {
 
     private fun setupSearchView() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                sendQueryToCurrentFragment(query.orEmpty())
-                return true
-            }
+            override fun onQueryTextSubmit(query: String?): Boolean = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                sendQueryToCurrentFragment(newText.orEmpty())
+                viewModel.setSearchQuery(newText ?: "")
                 return true
             }
         })
-    }
-
-    private fun sendQueryToCurrentFragment(query: String) {
-        val currentItem = binding.viewPager.currentItem
-        val tag = "f$currentItem" // ViewPager2 default fragment tag
-
-        val currentFragment = childFragmentManager.findFragmentByTag(tag)
-        when (currentItem) {
-            0 -> if (currentFragment is CurrencyFragment) currentFragment.filter(query)
-            1 -> { /* EmtiaFragment filter ekle */ }
-            2 -> { /* ShareFragment filter ekle */ }
-        }
     }
 
     override fun onDestroyView() {

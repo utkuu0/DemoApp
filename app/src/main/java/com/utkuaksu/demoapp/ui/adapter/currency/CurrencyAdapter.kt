@@ -3,13 +3,12 @@ package com.utkuaksu.demoapp.ui.adapter.currency
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.utkuaksu.demoapp.R
 import com.utkuaksu.demoapp.data.model.currency.Currency
-import android.widget.Filter
-
 
 class CurrencyAdapter(
     private var currencyList: List<Currency>
@@ -17,15 +16,16 @@ class CurrencyAdapter(
 
     private var filteredList: List<Currency> = currencyList
 
-    fun updateList(newList: List<Currency> ) {
+    fun updateList(newList: List<Currency>) {
         currencyList = newList
+        filteredList = newList // filtrelenmiş listeyi de güncelle
         notifyDataSetChanged()
     }
 
     class CurrencyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvCurrency: TextView = itemView.findViewById(R.id.tvShare)
-        val tvCurrencyBuying: TextView = itemView.findViewById(R.id.tvShareLastPrice)
-        val tvCurrencySelling: TextView = itemView.findViewById(R.id.tvShareRate)
+        val tvCurrency: TextView = itemView.findViewById(R.id.tvCurrency)
+        val tvCurrencyBuying: TextView = itemView.findViewById(R.id.tvCurrencyBuying)
+        val tvCurrencySelling: TextView = itemView.findViewById(R.id.tvCurrencySelling)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
@@ -35,11 +35,13 @@ class CurrencyAdapter(
     }
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        val currency = currencyList[position]
+        val currency = filteredList[position]
         holder.tvCurrency.text = currency.name
         holder.tvCurrencyBuying.text = currency.buying.toString()
         holder.tvCurrencySelling.text = currency.selling.toString()
     }
+
+    override fun getItemCount(): Int = filteredList.size
 
     override fun getFilter(): Filter {
         return object : Filter() {
@@ -49,7 +51,8 @@ class CurrencyAdapter(
                     currencyList
                 } else {
                     currencyList.filter {
-                        it.name.lowercase().contains(query) || it.code.lowercase().contains(query)
+                        it.name.lowercase().contains(query) ||
+                                it.code.lowercase().contains(query)
                     }
                 }
                 return FilterResults().apply { values = result }
@@ -62,6 +65,4 @@ class CurrencyAdapter(
             }
         }
     }
-
-    override fun getItemCount(): Int = currencyList.size
 }

@@ -16,7 +16,7 @@
 
         <!-- Currency Code -->
         <TextView
-            android:id="@+id/tvShare"
+            android:id="@+id/tvCurrency"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
 
         <!-- Buying Rate -->
         <TextView
-            android:id="@+id/tvShareLastPrice"
+            android:id="@+id/tvCurrencyBuying"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23.50"
@@ -37,7 +37,7 @@
 
         <!-- Selling Rate -->
         <TextView
-            android:id="@+id/tvShareRate"
+            android:id="@+id/tvCurrencySelling"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23.60"

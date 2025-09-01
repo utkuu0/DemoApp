@@ -1,9 +1,7 @@
 package com.utkuaksu.demoapp.ui.emtia
 
 import androidx.lifecycle.*
-import com.utkuaksu.demoapp.data.model.currency.Currency
 import com.utkuaksu.demoapp.data.model.emtia.Emtia
-import com.utkuaksu.demoapp.data.repository.currency.CurrencyRepository
 import com.utkuaksu.demoapp.data.repository.emtia.EmtiaRepository
 import com.utkuaksu.demoapp.utils.Resource
 import kotlinx.coroutines.launch
