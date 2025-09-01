@@ -27,7 +27,7 @@
 
         <!-- Buying Rate -->
         <TextView
-            android:id="@+id/tvEmtiBuying"
+            android:id="@+id/tvEmtiaBuying"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="7689"
