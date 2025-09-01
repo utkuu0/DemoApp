@@ -57,7 +57,7 @@ class CurrencyFragment : Fragment() {
             adapter.filter.filter(query)
         }
 
-        currencyViewModel.fetchCurrencies()
+        currencyViewModel.startAutoFetchCurrencies()
     }
 
     override fun onDestroyView() {

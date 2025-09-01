@@ -2,6 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green">#248232</color>
-    <color name="red">#d32f2f</color>
+
+    <!-- Background -->
+    <color name="background_dark">#0D1B2A</color>
+    <color name="card_background">#1B263B</color>
+
+    <!-- Text -->
+    <color name="text_primary">#F8F9FA</color>
+    <color name="text_secondary">#E0E0E0</color>
+
+    <!-- Currency Change -->
+    <color name="currency_up">#06D6A0</color>
+    <color name="currency_down">#EF476F</color>
+
+    <!-- Accent -->
+    <color name="accent_gold">#FFD166</color>
 </resources>

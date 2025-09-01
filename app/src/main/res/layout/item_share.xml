@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/card_background">
 
         <!-- ICON -->
 
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Şirket1"
-            android:textColor="#040f0f"
+            android:textColor="@color/text_secondary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="güncel"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:textSize="16sp" />
 
         <!-- Rate -->
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="rate"
-            android:textColor="#d32f2f"
+            android:textColor="#ffffff"
             android:textSize="16sp" />
 
     </LinearLayout>

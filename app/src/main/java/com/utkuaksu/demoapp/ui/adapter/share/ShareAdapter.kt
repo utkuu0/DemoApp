@@ -53,11 +53,11 @@ class ShareAdapter(
         //Rate değerine göre color verdim.
         if (share.rate <= 0) {
             holder.tvShareRate.setTextColor(
-                ContextCompat.getColor(holder.tvShareRate.context, R.color.red)
+                ContextCompat.getColor(holder.tvShareRate.context, R.color.currency_down)
             )
         } else {
             holder.tvShareRate.setTextColor(
-                ContextCompat.getColor(holder.tvShareRate.context, R.color.green)
+                ContextCompat.getColor(holder.tvShareRate.context, R.color.currency_up)
             )
         }
     }

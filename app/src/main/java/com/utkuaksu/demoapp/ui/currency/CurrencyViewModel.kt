@@ -4,6 +4,8 @@ import androidx.lifecycle.*
 import com.utkuaksu.demoapp.data.model.currency.Currency
 import com.utkuaksu.demoapp.data.repository.currency.CurrencyRepository
 import com.utkuaksu.demoapp.utils.Resource
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class CurrencyViewModel( private val repository: CurrencyRepository) : ViewModel() {
@@ -14,18 +16,23 @@ class CurrencyViewModel( private val repository: CurrencyRepository) : ViewModel
     }
     val currencies: LiveData<Resource<List<Currency>>> = _currencies
 
-    fun fetchCurrencies() {
+    //otomatik yapılıyor
+    fun startAutoFetchCurrencies() {
         viewModelScope.launch {
-            _currencies.postValue(Resource.Loading())
-            try {
-                val response = repository.getCurrencies()
-                if (response.isSuccessful && response.body() != null) {
-                    _currencies.postValue(Resource.Success(response.body()!!.result))
-                } else {
-                    _currencies.postValue(Resource.Error("API Error: ${response.message()}"))
+            while (isActive) {
+                _currencies.postValue(Resource.Loading())
+                try {
+                    val response = repository.getCurrencies()
+                    if (response.isSuccessful && response.body() != null) {
+                        _currencies.postValue(Resource.Success(response.body()!!.result))
+                    } else {
+                        _currencies.postValue(Resource.Error("API Error: ${response.message()}"))
+                    }
+                } catch (e: Exception) {
+                    _currencies.postValue(Resource.Error("Network Error: ${e.localizedMessage}"))
                 }
-            } catch (e: Exception) {
-                _currencies.postValue(Resource.Error("Network Error: ${e.localizedMessage}"))
+                //5 saniyede bir yenile
+                delay(5000)
             }
         }
     }

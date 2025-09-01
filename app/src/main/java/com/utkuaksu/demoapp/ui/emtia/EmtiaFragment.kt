@@ -56,7 +56,7 @@ class EmtiaFragment : Fragment() {
             adapter.filter.filter(query)
         }
 
-        emtiaViewModel.fetchEmtias()
+        emtiaViewModel.startAutoFetchEmtias()
     }
 
     override fun onDestroyView() {

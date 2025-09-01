@@ -4,6 +4,8 @@ import androidx.lifecycle.*
 import com.utkuaksu.demoapp.data.model.emtia.Emtia
 import com.utkuaksu.demoapp.data.repository.emtia.EmtiaRepository
 import com.utkuaksu.demoapp.utils.Resource
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class EmtiaViewModel( private val repository: EmtiaRepository) : ViewModel() {
@@ -14,18 +16,22 @@ class EmtiaViewModel( private val repository: EmtiaRepository) : ViewModel() {
     }
     val emtias: LiveData<Resource<List<Emtia>>> = _emtias
 
-    fun fetchEmtias() {
+    fun startAutoFetchEmtias() {
         viewModelScope.launch {
-            _emtias.postValue(Resource.Loading())
-            try {
-                val response = repository.getEmtias()
-                if (response.isSuccessful && response.body() != null) {
-                    _emtias.postValue(Resource.Success(response.body()!!.result))
-                } else {
-                    _emtias.postValue(Resource.Error("API Error: ${response.message()}"))
+            while (isActive) {
+                _emtias.postValue(Resource.Loading())
+                try {
+                    val response = repository.getEmtias()
+                    if (response.isSuccessful && response.body() != null) {
+                        _emtias.postValue(Resource.Success(response.body()!!.result))
+                    } else {
+                        _emtias.postValue(Resource.Error("API Error: ${response.message()}"))
+                    }
+                } catch (e: Exception) {
+                    _emtias.postValue(Resource.Error("Network Error: ${e.localizedMessage}"))
                 }
-            } catch (e: Exception) {
-                _emtias.postValue(Resource.Error("Network Error: ${e.localizedMessage}"))
+                //5 saniyede bir yenile
+                delay(5000)
             }
         }
     }

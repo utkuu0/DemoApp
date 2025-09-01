@@ -1,9 +1,11 @@
 package com.utkuaksu.demoapp.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -40,6 +42,14 @@ class MainFragment : Fragment() {
                 2 -> tab.text = "Share"
             }
         }.attach()
+
+        // Search ikonunu al ve rengini değiştir
+        val searchIcon: ImageView = binding.searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
+        searchIcon.setColorFilter(Color.parseColor("#F8F9FA"))
+
+        // Kapatma ikonunun rengi
+        val closeIcon: ImageView = binding.searchView.findViewById(androidx.appcompat.R.id.search_close_btn)
+        closeIcon.setColorFilter(Color.parseColor("#F8F9FA"))
 
         setupSearchView()
     }

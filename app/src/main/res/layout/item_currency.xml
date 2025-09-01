@@ -6,11 +6,12 @@
     android:layout_margin="8dp"
     card_view:cardCornerRadius="12dp"
     card_view:cardElevation="4dp"
-    android:background="@android:color/white">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/card_background"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -21,19 +22,19 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="USD"
+            android:textColor="@color/text_secondary"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#040f0f"/>
+            android:textStyle="bold" />
 
         <!-- Buying Rate -->
         <TextView
             android:id="@+id/tvCurrencyBuying"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="23.50"
             android:layout_marginEnd="16dp"
-            android:textColor="#248232"
-            android:textSize="16sp"/>
+            android:text="23.50"
+            android:textColor="@color/currency_up"
+            android:textSize="16sp" />
 
         <!-- Selling Rate -->
         <TextView
@@ -41,8 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23.60"
-            android:textColor="#d32f2f"
-            android:textSize="16sp"/>
+            android:textColor="@color/currency_down"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
