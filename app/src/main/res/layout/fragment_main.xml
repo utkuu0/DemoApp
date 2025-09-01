@@ -3,22 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <!-- Üstte TabLayout -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@android:color/holo_green_light"
-        app:tabTextColor="@android:color/black"
-        app:tabSelectedTextColor="@android:color/holo_green_dark"/>
+        app:tabIndicatorColor="@color/text_primary"
+        app:tabTextColor="@color/text_secondary"
+        app:tabSelectedTextColor="@color/text_primary"
+        android:background="@color/card_background"
+        app:tabRippleColor="@color/cardview_light_background"
+        />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Ara..." />
+        android:queryHint="Ara..."
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

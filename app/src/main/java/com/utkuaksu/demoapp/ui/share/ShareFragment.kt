@@ -58,7 +58,7 @@ class ShareFragment : Fragment() {
             adapter.filter.filter(query)
         }
 
-        shareViewModel.fetchShares()
+        shareViewModel.startAutoFetchShares()
     }
 
     override fun onDestroyView() {
