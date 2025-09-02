@@ -15,6 +15,10 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.utkuaksu.demoapp.ui.main.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>

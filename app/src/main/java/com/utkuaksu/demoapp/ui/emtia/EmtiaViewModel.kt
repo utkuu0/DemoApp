@@ -30,8 +30,8 @@ class EmtiaViewModel( private val repository: EmtiaRepository) : ViewModel() {
                 } catch (e: Exception) {
                     _emtias.postValue(Resource.Error("Network Error: ${e.localizedMessage}"))
                 }
-                //5 saniyede bir yenile
-                delay(5000)
+                //15 saniyede bir yenile
+                delay(15000)
             }
         }
     }

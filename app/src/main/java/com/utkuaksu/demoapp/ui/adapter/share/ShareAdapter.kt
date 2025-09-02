@@ -46,7 +46,7 @@ class ShareAdapter(
             .load(share.icon)
             .into(holder.tvShareIcon)
 
-        holder.tvShare.text = share.text
+        holder.tvShare.text = share.code
         holder.tvShareLastPrice.text = share.lastprice.toString()
         holder.tvShareRate.text = share.rate.toString()
 
