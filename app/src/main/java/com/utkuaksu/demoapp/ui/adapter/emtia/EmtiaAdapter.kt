@@ -53,8 +53,8 @@ class EmtiaAdapter(
                     emtiaList
                 } else {
                     emtiaList.filter {
-                        it.test.lowercase().contains(query) ||
-                                it.name.lowercase().contains(query)
+                        (it.test ?: "").lowercase().contains(query) ||
+                                (it.name ?: "").lowercase().contains(query)
                     }
                 }
                 return FilterResults().apply { values = result }

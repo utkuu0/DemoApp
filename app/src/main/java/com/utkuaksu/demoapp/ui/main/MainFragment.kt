@@ -105,6 +105,9 @@ class MainFragment : Fragment() {
         val closeIcon: ImageView = binding.searchView.findViewById(androidx.appcompat.R.id.search_close_btn)
         closeIcon.setColorFilter("#F8F9FA".toColorInt())
 
+        val searchEditText: TextView = binding.searchView.findViewById(androidx.appcompat.R.id.search_src_text)
+        searchEditText.setTextColor("#F8F9FA".toColorInt())
+
         setupSearchView()
     }
 
