@@ -1,0 +1,16 @@
+ <vector xmlns:android="http://schemas.android.com/apk/res/android"
+     android:width="80dp"
+     android:height="80dp"
+     android:viewportWidth="24"
+     android:viewportHeight="24">
+
+     <!-- Arka plan daire -->
+     <path
+         android:fillColor="#CCCCCC"
+         android:pathData="M12,2a10,10 0 1,0 0,20a10,10 0 1,0 0,-20z"/>
+
+     <!-- Basit insan ikonu -->
+     <path
+         android:fillColor="#FFFFFF"
+         android:pathData="M12,12a4,4 0 1,0 0,-8a4,4 0 1,0 0,8zm0,2c-5,0 -6,2.5 -6,4v2h12v-2c0,-1.5 -1,-4 -6,-4z"/>
+ </vector>
