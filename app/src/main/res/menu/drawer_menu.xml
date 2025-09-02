@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/menu_group_top"
+        android:checkableBehavior="none">
+        <!-- Üstte ek menülerin olacaksa buraya koyabilirsin -->
+    </group>
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="Çıkış Yap"
+        />
+</menu>
