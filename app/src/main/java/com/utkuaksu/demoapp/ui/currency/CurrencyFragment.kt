@@ -62,6 +62,7 @@ class CurrencyFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        currencyViewModel.stopCounter()
         _binding = null
     }
 }

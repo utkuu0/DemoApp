@@ -152,10 +152,6 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun showLoading(show: Boolean) {
-        binding.loadingOverlay.visibility = if (show) View.VISIBLE else View.GONE
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

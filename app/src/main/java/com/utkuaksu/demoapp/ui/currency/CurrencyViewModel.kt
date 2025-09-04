@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.utkuaksu.demoapp.data.model.currency.Currency
 import com.utkuaksu.demoapp.data.repository.currency.CurrencyRepository
 import com.utkuaksu.demoapp.utils.Resource
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -16,9 +17,11 @@ class CurrencyViewModel( private val repository: CurrencyRepository) : ViewModel
     }
     val currencies: LiveData<Resource<List<Currency>>> = _currencies
 
+    private var dispacther: Job? = null
+
     //otomatik yapılıyor
     fun startAutoFetchCurrencies() {
-        viewModelScope.launch {
+        dispacther = viewModelScope.launch {
             while (isActive) {
                 _currencies.postValue(Resource.Loading())
                 try {
@@ -35,6 +38,10 @@ class CurrencyViewModel( private val repository: CurrencyRepository) : ViewModel
                 delay(15000)
             }
         }
+    }
+
+    fun stopCounter() {
+        dispacther?.cancel()
     }
 }
 
