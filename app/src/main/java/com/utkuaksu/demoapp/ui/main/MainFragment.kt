@@ -20,6 +20,7 @@ import com.utkuaksu.demoapp.MainViewModel
 import com.utkuaksu.demoapp.R
 import com.utkuaksu.demoapp.databinding.FragmentMainBinding
 import com.utkuaksu.demoapp.ui.adapter.viewpager.ViewPagerAdapter
+import androidx.viewpager2.widget.ViewPager2
 
 class MainFragment : Fragment() {
 
@@ -30,6 +31,11 @@ class MainFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    // SharedPreferences (autoLogin için)
+    private val prefs by lazy {
+        requireActivity().getSharedPreferences("app_prefs", android.content.Context.MODE_PRIVATE)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,10 +85,25 @@ class MainFragment : Fragment() {
         // Çıkış yap ve LoginFragment’e dön
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             if (menuItem.itemId == R.id.action_logout) {
-                googleSignInClient.signOut().addOnCompleteListener {
-                    viewModel.logout()
-                    findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
-                }
+
+                binding.drawerLayout.closeDrawer(binding.navigationView)
+
+                binding.drawerLayout.postDelayed({
+                    binding.loadingOverlay.visibility = View.VISIBLE
+
+                    googleSignInClient.signOut().addOnCompleteListener {
+                        // AutoLogin kapat
+                        prefs.edit().putBoolean("autoLogin", false).apply()
+
+                        // ViewModel resetle
+                        viewModel.logout()
+
+                        binding.loadingOverlay.postDelayed({
+                            binding.loadingOverlay.visibility = View.GONE
+                            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+                        }, 2000) // yüklenme süresi
+                    }
+                }, 300)
                 true
             } else false
         }
@@ -97,6 +118,16 @@ class MainFragment : Fragment() {
                 else -> ""
             }
         }.attach()
+
+        // Sayfa değişimlerini dinle
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.searchView.setQuery("", false) // text'i temizle
+                binding.searchView.clearFocus()        // klavyeyi kapat
+                viewModel.setSearchQuery("")           // ViewModel'i de resetle
+            }
+        })
 
         // SearchView ikon renkleri
         val searchIcon: ImageView = binding.searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
@@ -119,6 +150,10 @@ class MainFragment : Fragment() {
                 return true
             }
         })
+    }
+
+    private fun showLoading(show: Boolean) {
+        binding.loadingOverlay.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {

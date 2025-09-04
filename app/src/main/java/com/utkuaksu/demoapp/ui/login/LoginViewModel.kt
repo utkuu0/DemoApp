@@ -18,9 +18,17 @@ class LoginViewModel : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
+        _isLoading.value = true // işlem başlıyor
+
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
+            _isLoading.value = false // işlem bitti
+
             if (task.isSuccessful) {
                 _user.postValue(auth.currentUser)
             } else {
@@ -29,3 +37,4 @@ class LoginViewModel : ViewModel() {
         }
     }
 }
+
