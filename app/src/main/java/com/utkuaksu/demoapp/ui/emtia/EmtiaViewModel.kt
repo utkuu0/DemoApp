@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.utkuaksu.demoapp.data.model.emtia.Emtia
 import com.utkuaksu.demoapp.data.repository.emtia.EmtiaRepository
 import com.utkuaksu.demoapp.utils.Resource
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -16,8 +17,10 @@ class EmtiaViewModel( private val repository: EmtiaRepository) : ViewModel() {
     }
     val emtias: LiveData<Resource<List<Emtia>>> = _emtias
 
+    private var dispatcher: Job? = null
+
     fun startAutoFetchEmtias() {
-        viewModelScope.launch {
+        dispatcher = viewModelScope.launch {
             while (isActive) {
                 _emtias.postValue(Resource.Loading())
                 try {
@@ -34,6 +37,10 @@ class EmtiaViewModel( private val repository: EmtiaRepository) : ViewModel() {
                 delay(15000)
             }
         }
+    }
+
+    fun stopCounter() {
+        dispatcher?.cancel()
     }
 }
 

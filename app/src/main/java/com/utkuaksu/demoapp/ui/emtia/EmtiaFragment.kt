@@ -60,6 +60,7 @@ class EmtiaFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        emtiaViewModel.stopCounter()
         super.onDestroyView()
         _binding = null
     }

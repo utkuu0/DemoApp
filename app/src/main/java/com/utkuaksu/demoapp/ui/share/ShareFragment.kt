@@ -63,6 +63,7 @@ class ShareFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        shareViewModel.stopCounter()
         _binding = null
     }
 }

@@ -6,6 +6,7 @@ import com.utkuaksu.demoapp.data.model.share.Share
 import com.utkuaksu.demoapp.data.repository.currency.CurrencyRepository
 import com.utkuaksu.demoapp.data.repository.share.ShareRepository
 import com.utkuaksu.demoapp.utils.Resource
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -18,8 +19,10 @@ class ShareViewModel( private val repository: ShareRepository) : ViewModel() {
     }
     val shares: LiveData<Resource<List<Share>>> = _shares
 
+    private var dispatcher: Job? = null
+
     fun startAutoFetchShares() {
-        viewModelScope.launch {
+         dispatcher = viewModelScope.launch {
             while (isActive) {
                 _shares.postValue(Resource.Loading())
                 try {
@@ -36,6 +39,10 @@ class ShareViewModel( private val repository: ShareRepository) : ViewModel() {
                 delay(15000)
             }
         }
+    }
+
+    fun stopCounter() {
+        dispatcher?.cancel()
     }
 }
 
